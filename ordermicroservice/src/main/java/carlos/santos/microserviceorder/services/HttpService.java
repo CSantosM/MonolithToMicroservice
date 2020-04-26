@@ -20,39 +20,50 @@ import carlos.santos.microserviceorder.models.Product;
 @Service
 public class HttpService {
 
-	// Monolith URL
-	private String host = "http://localhost:8080/";
+	private String HOST = "http://localhost";
+	private String MONOLITH_PORT = "8080";
 
 	public Product getProduct(Long id) throws NotFoundException {
-		String productString = this.request("products/"+ id, "GET", null);
+		String productString = this.request(HOST + ":" + MONOLITH_PORT + "/products/"+ id, "GET", null);
 		Gson gson = new Gson();
-		return gson.fromJson(productString,Product.class);
+		Product p = gson.fromJson(productString,Product.class);
+		if (p != null) {
+			return p;
+		}
+		throw new NotFoundException();
 	}
 
 	public void updateProduct(Product product) throws NotFoundException {
 		Gson gson = new Gson();
 		String jsonProduct = gson.toJson(product);
-		this.request("products/", "POST", jsonProduct);
+		this.request(HOST + ":" + MONOLITH_PORT + "/products/", "POST", jsonProduct);
 	}
 
 	public Customer getCustomer(Long id) throws NotFoundException {
-		String customerString = this.request("customers/"+ id, "GET", null);
+		String customerString = this.request(HOST + ":" + MONOLITH_PORT + "/customers/"+ id, "GET", null);
 		Gson gson = new Gson();
-		return gson.fromJson(customerString, Customer.class);
+		Customer c = gson.fromJson(customerString, Customer.class);
+		if (c != null) {
+			return c;
+		}
+		throw new NotFoundException();
 	}
 
 	public void updateCustomer(Customer customer) throws NotFoundException {
 		Gson gson = new Gson();
 		String jsonCustomer = gson.toJson(customer);
-		this.request("customers/", "POST", jsonCustomer);
+		this.request(HOST + ":" + MONOLITH_PORT + "/customers/", "POST", jsonCustomer);
 	}
 
-	public String request(String path, String method, String content) throws NotFoundException {
-		assert path != null;
+
+	public String request(String restUrl, String method, String content) {
+		assert restUrl != null;
 		assert method == "GET" || method == "POST" && content != null;
 
+		StringBuffer response = new StringBuffer();
+
 		try {
-			URL url = new URL(this.host + path);
+			URL url = new URL(restUrl);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			con.setRequestMethod(method);
 			con.setRequestProperty("Content-Type", "application/json; utf-8");
@@ -70,20 +81,19 @@ public class HttpService {
 			BufferedReader in = new BufferedReader(
 				new InputStreamReader(con.getInputStream(), "utf-8"));
 			String inputLine;
-			StringBuffer response = new StringBuffer();
 			while ((inputLine = in.readLine()) != null) {
 				response.append(inputLine);
 			}
 			in.close();
 			con.disconnect();
-			return response.toString();
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}catch (ProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 		}
-		throw new NotFoundException();
+		return response.toString();
+
 	}
 
 }
