@@ -8,8 +8,8 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>carlos.santos</groupId>
-	<artifactId>microserviceorder</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>order-microservice</artifactId>
+	<version>0.0.1</version>
 	<name>microserviceorder</name>
 	<description>MicroProduct service</description>
 

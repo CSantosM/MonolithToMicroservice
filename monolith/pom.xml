@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>carlos.santos</groupId>
-	<artifactId>Practica2</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>monolith</artifactId>
+	<version>0.0.1</version>
 	<name>Practica2</name>
 	<description>Monolito a microservicio</description>
 
