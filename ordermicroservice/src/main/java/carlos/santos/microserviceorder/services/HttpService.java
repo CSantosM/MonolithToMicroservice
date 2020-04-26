@@ -22,6 +22,7 @@ public class HttpService {
 
 	private String HOST = "http://localhost";
 	private String MONOLITH_PORT = "8080";
+	private String LOGGER_PORT = "8082";
 
 	public Product getProduct(Long id) throws NotFoundException {
 		String productString = this.request(HOST + ":" + MONOLITH_PORT + "/products/"+ id, "GET", null);
@@ -55,6 +56,9 @@ public class HttpService {
 		this.request(HOST + ":" + MONOLITH_PORT + "/customers/", "POST", jsonCustomer);
 	}
 
+	public void sendMessage(String message){
+		this.request(HOST + ":" + LOGGER_PORT + "/logger/", "POST", message);
+	}
 
 	public String request(String restUrl, String method, String content) {
 		assert restUrl != null;

@@ -21,7 +21,6 @@ import carlos.santos.microserviceorder.services.OrderService;
 @RequestMapping("/orders")
 public class OrderRestController {
 
-
 	@Autowired
 	private OrderService orderService;
 
