@@ -1,0 +1,9 @@
+server {
+
+  server_name localhost;
+
+  location /orders/ {
+      proxy_pass http://localhost:8081/orders/;
+  }
+
+}
