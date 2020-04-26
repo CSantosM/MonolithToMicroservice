@@ -25,20 +25,21 @@ function test() {
 
 
 HOST=localhost
-PORT=8080
+MONOLITH_PORT=8080
+MICROSERVICE_PORT=8081
 
 
-test "GET products /products/:  " "GET" "http://$HOST:$PORT/products/" "200"
+test "GET products /products/:  " "GET" "http://$HOST:$MONOLITH_PORT/products/" "200"
 
-test "GET product /products/3:  " "GET" "http://$HOST:$PORT/products/3" "200"
+test "GET product /products/3:  " "GET" "http://$HOST:$MONOLITH_PORT/products/3" "200"
 
-test "GET customers /customers/:" "GET" "http://$HOST:$PORT/customers" "200"
+test "GET customers /customers/:" "GET" "http://$HOST:$MONOLITH_PORT/customers" "200"
 
-test "GET customer /customers/1:" "GET" "http://$HOST:$PORT/customers" "200"
+test "GET customer /customers/1:" "GET" "http://$HOST:$MONOLITH_PORT/customers" "200"
 
-test "POST order /orders/" "POST" "http://$HOST:$PORT/orders/" "200"
+test "POST order /orders/" "POST" "http://$HOST:$MICROSERVICE_PORT/orders/" "200"
 
-test "POST order /orders/" "POST" "http://$HOST:$PORT/orders/" "406"
+test "POST order /orders/" "POST" "http://$HOST:$MICROSERVICE_PORT/orders/" "406"
 
 
 
