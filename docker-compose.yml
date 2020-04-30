@@ -5,6 +5,7 @@ services:
   monolith:
     image: csantosm/mca_monolith
     restart: on-failure
+    network_mode: host
     ports:
       - 8080:8080
     expose:
@@ -14,6 +15,7 @@ services:
   order-microservice:
     image: csantosm/mca_order_microservice
     restart: on-failure
+    network_mode: host
     depends_on:
       - monolith
     ports:
